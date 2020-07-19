@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './mine.styl'
-import avatar from '../../assets/imgs/avatar.JPG'
+import avatar from '@/assets/imgs/avatar.JPG';
 import MineItem from './mineItem/MineItem'
 import Swiper from "swiper"
-import "swiper/css/swiper.css"
+import "swiper/css/swiper.min.css";
 
 class Mine extends Component {
     state = {}
@@ -11,19 +11,20 @@ class Mine extends Component {
         new Swiper(".slider-container", {
             loop: true,
             autoplay: {
-              delay: 1000,
+                delay: 2000,
             },
-            pagination: {
-              el: '.swiper-pagination',
-              type: 'bullets',
-            }
-          })
+            // pagination: {
+            //   el: '.swiper-pagination',
+            //   type: 'bullets',
+            // }
+        })
     }
     render() {
         return (
             <div className="mine">
                 <div className="mine-header-wrapper">
                     <span>我的</span>
+                    <span class="icon iconfont">&#xe665;</span>
                 </div>
                 <div className="mine-info-wrapper">
                     <div className="avatar">
@@ -36,40 +37,20 @@ class Mine extends Component {
                         <div className="phone-and-selfPage">
                             <div className="phone">12345678910</div>
                             <div className="selfPage">
-                                个人主页<span class="icon iconfont right">&#xe613;</span>
+                                个人主页<span className="icon iconfont right">&#xe613;</span>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="slider-container">
                     <div className="swiper-wrapper">
-                        {/* {
-                            this.state.sliderList.map(slider => {
-                                return ( */}
-                                    <div className="swiper-slide">
-                                        {/* <a href={slider.linkUrl} className="slider-nav"> */}
-                                            <img src="" alt="图片不见了" width="100%" height="100%" />
-                                        {/* </a> */}
-                                    </div>
-                                {/* );
-                            })
-                        } */}
+                        <div className="swiper-slide">
+                            <img src={avatar} alt="图片不见了" width="100%" height="100%" />
+                        </div>
                     </div>
-                    <div className="swiper-wrapper">
-                        {/* {
-                            this.state.sliderList.map(slider => {
-                                return ( */}
-                                    <div className="swiper-slide">
-                                        {/* <a href={slider.linkUrl} className="slider-nav"> */}
-                                            <img src="" alt="图片不见了" width="100%" height="100%" />
-                                        {/* </a> */}
-                                    </div>
-                                {/* );
-                            })
-                        } */}
-                    </div>
-                    <div className="swiper-pagination"></div>
+                    {/* <div className="swiper-pagination"></div> */}
                 </div>
+                <MineItem />
                 <MineItem />
             </div>
         );
