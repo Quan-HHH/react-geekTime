@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import './index.styl';
+import Account from './pages/account/Account'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Account 
+    balance={0.00}
+    />
   </React.StrictMode>,
   document.getElementById('root')
 );

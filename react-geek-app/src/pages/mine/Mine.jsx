@@ -6,7 +6,22 @@ import Swiper from "swiper"
 import "swiper/css/swiper.min.css";
 
 class Mine extends Component {
-    state = {}
+    state = {
+        items:[
+            {
+                isCountShow:true,
+                isDotShow:true,
+                title:'账户',
+                icon:`&#xe8d5;`,
+            },
+            {
+                isCountShow:false,
+                isDotShow:false,
+                title:'账户',
+                icon:'&#xe8d5;',
+            },
+        ]
+    }
     componentDidMount() {
         new Swiper(".slider-container", {
             loop: true,
@@ -20,6 +35,12 @@ class Mine extends Component {
         })
     }
     render() {
+        let {items} = this.state;
+        items = items.map((i,index) => {
+            return(
+                <MineItem {...i}/>
+            )
+        })
         return (
             <div className="mine">
                 <div className="mine-header-wrapper">
@@ -48,10 +69,8 @@ class Mine extends Component {
                             <img src={avatar} alt="图片不见了" width="100%" height="100%" />
                         </div>
                     </div>
-                    {/* <div className="swiper-pagination"></div> */}
                 </div>
-                <MineItem />
-                <MineItem />
+                {items}
             </div>
         );
     }
