@@ -2,18 +2,29 @@ import React, { Component } from 'react';
 import accountImg from '../../assets/imgs/account.png'
 import './account.styl'
 import RechargeItem from './rechargeItem/RechargeItem'
+import classNames from 'classnames'
+import { connect } from 'react-redux'
+import { rechargeActionCreator } from '@/store/action'
 
 class Account extends Component {
-    state = {
-        recharge: [6, 12, 68, 108, 218, 318, 418, 648, 998],
-        highLightKey: 0
+    constructor() {
+        super();
+        this.state = {
+            recharge: [6, 12, 68, 108, 218, 318, 418, 648, 998],
+            highlightKey: 0
+        }
     }
     goBack = () => {
         window.history.back();
     }
+    handleHighlight = (key) => {
+        console.log(this.state)
+        this.setState({
+            highlightKey: key
+        })
+    }
     render() {
         const rechargeItemList = this.state.recharge;
-
         return (
             <div className="account-wrapper">
                 <div className="account-top">
@@ -39,17 +50,35 @@ class Account extends Component {
                         {
                             rechargeItemList.map((item, index) => {
                                 return (<RechargeItem
+                                    className={classNames({
+                                        'highlight': index === this.state.highlightKey
+                                    })}
                                     money={item}
                                     key={index}
+                                    handleHighlight={this.handleHighlight.bind(this, index)}
                                 />)
                             })
                         }
                     </div>
-                    <button>确认充值</button>
+                    <button onClick={() => {this.props.handleRecharge(this.state.recharge[this.state.highlightKey])}}>确认充值</button>
                 </div>
             </div>
         );
     }
 }
 
-export default Account;
+const mapStateToProps = (state) => {
+    return {
+        balance: state.getIn(['account'])
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        handleRecharge: (payload) => {
+            dispatch(rechargeActionCreator(payload))
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Account);
