@@ -3,8 +3,11 @@
     .practiceCamp-item-img
         height 2.893333rem
         width 2.186667rem
+        border-radius 3px
+        overflow hidden
     .practiceCamp-item-detail
         flex 1
+        overflow hidden
         margin-left .426667rem
         .practiceCamp-item-name
             font-size .48rem
@@ -12,20 +15,19 @@
             height .466667rem
             margin-top .2rem
             color #767676
-            font-size .32rem
+            font-size .35rem
+            display flex
             .practiceCamp-item-teacher-name 
                 vertical-align top
                 padding 0 5px
-                height .466667rem
                 display inline-block
                 background-color #f1f1f1
                 border-radius 5px
             .practiceCamp-item-teacher-desc
                 padding 0 5px
-                height .466667rem
                 display inline-block
                 background-color #f1f1f1
-                width 50px
+                flex 1
                 margin-left .16rem
                 border-radius 5px
                 overflow hidden
@@ -36,12 +38,13 @@
             font-size .306667rem
             color #aeaeae
         .price-and-join
-            margin-top .4rem
+            margin-top .193334rem
             display flex
             align-items center
             .practiceCamp-item-price
                 font-size .373333rem
                 color #fa8919
+                font-weight bolder
             .practiceCamp-item-oldprice
                 flex 1
                 font-size .24rem
@@ -57,4 +60,6 @@
                 border none 
                 background-color #fbf5ee
                 color #fa8919
+.practiceCamp-item + .practiceCamp-item
+    margin-top .746667rem
             

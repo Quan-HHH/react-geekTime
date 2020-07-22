@@ -1,6 +1,7 @@
 import {fromJS} from 'immutable';
 import {BUY_LESSON,RECHARGE} from './action';
-import {ADD_DATA_TO_MINE_PAGE,SET_IS_DOTED} from './action';
+import {ADD_DATA_TO_MINE_PAGE,SET_IS_DOTED_TO_TRUE,SET_IS_DOTED_TO_FALSE} from './action';
+import {ADD_DATA_TO_COURSE_LESSON} from './action';
 
 let defaultBalanceState = 0;
 const balanceReducer = (state = defaultBalanceState,action) => {
@@ -16,15 +17,27 @@ const balanceReducer = (state = defaultBalanceState,action) => {
 }
 
 let defaultMineItemState = fromJS([]);
-const MineItemReducer = (state = defaultMineItemState,action) => {
+const mineItemReducer = (state = defaultMineItemState,action) => {
     const {type,payload} = action;
     switch (type) {
         case ADD_DATA_TO_MINE_PAGE:
             return fromJS(payload);
-        case SET_IS_DOTED:
-            let isDoted = state.getIn([payload,'isDotShow']);
-            isDoted = isDoted === 1 ? 0 : 1;
-            return state.setIn([payload,'isDotShow'],isDoted);
+        case SET_IS_DOTED_TO_TRUE:
+            return state.setIn([payload,'isDotShow'],1);
+        case SET_IS_DOTED_TO_FALSE:
+            return state.setIn([payload,'isDotShow'],0);
+        default:
+            return state;
+    }
+}
+
+let defaultcourseLessonItemState = fromJS([]);
+const courseLessonItemReducer = (state = defaultcourseLessonItemState , action) => {
+    const {type,payload} = action;
+    switch (type) {
+        case ADD_DATA_TO_COURSE_LESSON:
+            return fromJS(payload);
+    
         default:
             return state;
     }
@@ -33,7 +46,8 @@ const MineItemReducer = (state = defaultMineItemState,action) => {
 
 const reducers = {
     account:balanceReducer,//账户余额 Number
-    mineItemDateSource:MineItemReducer,//我的 页面的每一项的数据 Array
+    mineItemDateSource:mineItemReducer,//我的 页面的每一项的数据 Array
+    courseLessonDataSource:courseLessonItemReducer,//讲堂的课程页面下面的数据源 Array
 }
 
 export default reducers;
