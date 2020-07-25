@@ -6,7 +6,7 @@ export const Header = styled.div`
     top: 0;
     right: 0;
     left: 0;
-    background-color: #fffefb;
+    background-color: #ffffff;
     z-index: 99;
     font-size: 20px;
     display: flex;
@@ -15,6 +15,6 @@ export const Header = styled.div`
     padding: 0 .533333rem;
     .icon {
         color: #999999;
-        font-size: 36px;
+        font-size: 32px;
     }
 `;
