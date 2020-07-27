@@ -3,10 +3,11 @@ import Mock from 'mockjs';
 const data = Mock.mock('mock/discover/practiceCamp',{
     'practiceCamps|4':[{
         'id|+1':0,
-        'img': "@Image('161.5x90','@color','@cname')",
         'title': '@ctitle',
-        'desc': '@csentence',
-        'name':'@cname',
+        'img': "@Image('161.5x90','@color','@cname')",
+        'lessonDesc': '@csentence',
+        'teacher':'@cname',
+        'teacherDesc': '@csentence',
         'phase|1-20':1,
         'month|1-12':1,
         'day|1-30': 10,

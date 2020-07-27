@@ -1,9 +1,10 @@
 import {fromJS} from 'immutable';
 import {BUY_LESSON,RECHARGE} from './action';
 import {ADD_DATA_TO_MINE_PAGE,SET_IS_DOTED_TO_TRUE,SET_IS_DOTED_TO_FALSE} from './action';
-import {ADD_DATA_TO_COURSE_LESSON} from './action';
+import {ADD_DATA_TO_COURSE_LESSON,SET_LESSON_TO_BE_PURCHASED} from './action';
 import {ADD_DATA_TO_PRACTICE_CAMP,SET_PRACTICE_CAMP_TO_BE_PURCHASED} from './action';
 import {ADD_PURCHASED_LESSONS_TO_STUDY_PAGE} from './action';
+import {ADD_RECORD_TO_RECHARGE_RECORD} from './action';
 
 let defaultBalanceState = 10000;
 const balanceReducer = (state = defaultBalanceState,action) => {
@@ -38,8 +39,9 @@ const courseLessonItemReducer = (state = defaultcourseLessonItemState , action) 
     const {type,payload} = action;
     switch (type) {
         case ADD_DATA_TO_COURSE_LESSON:
-            return fromJS(payload);
-    
+            return state.push(...fromJS(payload));
+        case SET_LESSON_TO_BE_PURCHASED:
+            return state.setIn([payload,'isPurchased'],true);
         default:
             return state;
     }
@@ -63,7 +65,20 @@ const studyItemReducer = (state = defaultStudyItemState, action) => {
     const {type, payload} = action;
     switch (type) {
         case ADD_PURCHASED_LESSONS_TO_STUDY_PAGE:
-            return state.push(fromJS(payload))
+            return state.push(fromJS(payload));
+
+        
+        default:
+            return state;
+    }
+}
+
+const defaultRechargeRecordState = fromJS([]);
+const rechargeRecordReducer = (state = defaultRechargeRecordState , action) => {
+    const {type,payload} = action;
+    switch (type) {
+        case ADD_RECORD_TO_RECHARGE_RECORD:
+            return state.unshift(fromJS(payload));
         default:
             return state;
     }
@@ -75,6 +90,7 @@ const reducers = {
     courseLessonDataSource:courseLessonItemReducer,//讲堂的课程页面下面的数据源 Array
     practiceCampDataSource:practiceCampItemReducer,//讲堂的训练营下面的数据源  Array
     studyItemDatatSource:studyItemReducer, // 我的学习下面的数据源
+    rechargeRecordDataSource:rechargeRecordReducer,//充值明细的数据源  Array
 }
 
 export default reducers;

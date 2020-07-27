@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Header } from '../study/studyHeader.style'
 import './discover.styl'
 import Swiper from "swiper"
@@ -9,6 +9,7 @@ import '@/mock/discover-practiceCamp-data.js'
 
 function Discover() {
     const swiperImgArr = [1, 2, 3, 4, 5];
+    const [discoverData, setDiscoverData] = useState([]);
     useEffect(() => {
         new Swiper(".slider-container", {
             loop: true,
@@ -21,9 +22,29 @@ function Discover() {
         axios.get('mock/discover/practiceCamp')
             .then(res => res.data.practiceCamps)
             .then(res => {
-                console.log(res)
+                // console.log(res)
+                setDiscoverData(res);
             })
     }, [])
+
+    // const items = discoverData.map((item, i) => {
+    //     const { title, lessonDesc, month, day, img, teacher, teacherDesc, phase } = item;
+    //     return (
+    //         <GeekUniverSityItem
+    //             key={i}
+    //             title={title}
+    //             img={img}
+    //             lessonDesc={lessonDesc}
+    //             teacher={teacher}
+    //             teacherDesc={teacherDesc}
+    //             phase={phase}
+    //             month={month}
+    //             day={day}
+    //         />
+    //     )
+    // })
+    const items = discoverData.map((item,index) => <GeekUniverSityItem {...item} key={index}/>)
+
     return (
         <div className="discover">
             <Header>
@@ -70,25 +91,22 @@ function Discover() {
                         <div className="view-more">查看更多</div>
                     </div>
                     <div className="geek-university-wrapper">
-                        <GeekUniverSityItem
-                            title={'算法训练营'}
-                            lessonDesc={'70天刻意练习，彻底攻克算法'}
-                            teacher={'谭超'}
-                            teacherDesc={'前FaceBook工程师'}
-                            phase={1}
-                            month={1}
-                            day={1}
-                        />
-                        <GeekUniverSityItem
-                            title={'算法训练营'}
-                            lessonDesc={'70天刻意练习，彻底攻克算法'}
-                            teacher={'谭超'}
-                            teacherDesc={'前FaceBook工程师'}
-                            phase={1}
-                            month={1}
-                            day={1}
-                        />
+                       {items}
                     </div>
+                </div>
+                <div className="geek-university">
+                    <div className="geek-university-header">
+                        <span></span>
+                        <div className="geek-university-title">每日一课</div>
+                        <div className="view-more">查看更多</div>
+                    </div>
+                    <div className="geek-university-wrapper">
+                       {items}
+                    </div>
+                    <div className="change-for-other">
+                        <span class="icon iconfont">&#xe638; 换一换</span>
+                    </div>
+                    
                 </div>
             </div>
         </div>

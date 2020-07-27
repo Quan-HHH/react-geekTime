@@ -4,18 +4,20 @@ import './lesson.styl';
 import axios from 'axios';
 import '@/mock/course-lesson-data';
 import { connect } from 'react-redux';
-import { addDataToCourseLessonActionCreator } from '@/store/action';
+import { addDataToCourseLessonActionCreator,courseLessonPullDownActionCreator } from '@/store/action';
 import CourseDirection from './courseDirection/CourseDirection';
 import AllCourses from './allCourses/AllCourses';
-import BScroll from 'better-scroll';
+// import BScroll from 'better-scroll';
+import Scroll from '@/components/Scroll/Scroll';
+import {forceCheck} from 'react-lazyload';
 
 class Lesson extends Component {
     componentDidMount() {
-        this.bscroll = new BScroll('.lesson', {
-            scrollY: true,
-            click:true,
-            scrollX: false
-        })
+        // this.bscroll = new BScroll('.lesson', {
+        //     scrollY: true,
+        //     click:true,
+        //     scrollX: false
+        // })
         if (this.props.courseLessonDataSource.size > 0) {
             console.log('courseLessonDataSource已经有数据，所以阻断了axios请求');
             return;
@@ -23,20 +25,25 @@ class Lesson extends Component {
         console.log('请求courseLesson的数据');
         axios.get('/mock/course/lesson')
         .then(res => res.data.courses)
-        .then(res => this.props.loadCourseLessonData(res));
+        .then(res => this.props.addDataToCourseLesson(res));
     }
     render() {
         // console.log('lesson重新渲染');
-        const {courseLessonDataSource} = this.props;
-        console.log(courseLessonDataSource)
+        const {courseLessonDataSource,handlePullDown} = this.props;
         return (
-            <div className="lesson">
-                <div className="content">
-                    <StudyPath courseLessonDataSource={courseLessonDataSource}/>
-                    <CourseDirection courseLessonDataSource={courseLessonDataSource}/>
-                    <AllCourses />
+                <div className="lesson">
+                    <Scroll 
+                    direction={'vertical'} 
+                    pullUp={handlePullDown}
+                    onScroll={forceCheck}
+                    >
+                        <div className="content">
+                            <StudyPath courseLessonDataSource={courseLessonDataSource}/>
+                            <CourseDirection />
+                            <AllCourses courseLessonDataSource={courseLessonDataSource.toJS()}/>
+                        </div>
+                    </Scroll>
                 </div>
-            </div>
         );
     }
 }
@@ -48,8 +55,12 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = dispatch => {
     return {
-        loadCourseLessonData: (payload) => {
+        addDataToCourseLesson: (payload) => {
             dispatch(addDataToCourseLessonActionCreator(payload));
+        },
+        handlePullDown:() => {
+            console.log('123');
+            dispatch(courseLessonPullDownActionCreator());
         }
     }
 }

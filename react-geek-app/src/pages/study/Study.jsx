@@ -3,12 +3,12 @@ import './study.styl'
 import { Header } from './studyHeader.style'
 import { connect } from 'react-redux'
 import StudyItem from './studyItem/StudyItem'
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom';
 
 const Study = props => {
     const studyItemList = props.studyItems.map((item, i) => {
         return (
-            <StudyItem {...item} />
+            <StudyItem {...item} key={i}/>
         )
     })
     const len = studyItemList.length > 0 ? true : false;
@@ -43,7 +43,9 @@ const Study = props => {
             <div className="study-content-wrapper">
                 {!len &&
                     <div> <div className="no-study-record">暂无学习内容</div>
-                        <Link to='/course'><button className="subscribe-button">订阅</button></Link>
+                        <Link to="/course">
+                            <button className="subscribe-button">订阅</button>
+                        </Link>
                     </div>
                 }
                 {
