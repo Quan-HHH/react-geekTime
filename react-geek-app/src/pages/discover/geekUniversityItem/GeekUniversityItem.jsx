@@ -13,7 +13,8 @@ function GeekUniversityItem(props) {
             <div className="geek-university-item-title">{title}</div>
             <div className="geek-university-item-desc">{lessonDesc}</div>
             <div className="geek-university-item-teacher">
-                {teacher + ' ' + teacherDesc}
+                <div className="geek-university-item-teacherName">{teacher}</div>
+                <div className="geek-university-item-teacherDesc">{teacherDesc}</div>
             </div>
             <div className="geek-university-item-time">第{phase}期 {month}月{day}日开课</div>
         </div>
