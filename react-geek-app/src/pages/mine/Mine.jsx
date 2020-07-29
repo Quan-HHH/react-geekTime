@@ -67,6 +67,7 @@ class Mine extends Component {
                 <div className="mine-header-wrapper">
                     <span>我的</span>
                     <span className="icon iconfont">&#xe665;</span>
+                    <div className="message-num"></div>
                 </div>
                 <div className="bscroll-wrapper" >
                     <div className="content">
